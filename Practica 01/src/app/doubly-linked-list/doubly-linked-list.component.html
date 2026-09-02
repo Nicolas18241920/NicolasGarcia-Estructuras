@@ -1,0 +1,13 @@
+<div class="card">
+  <h2>🌐 Historial de Navegación (Lista Doblemente Enlazada)</h2>
+
+  <div *ngIf="currentPage">
+    <h3>Página Actual:</h3>
+    <p><strong>Sitio:</strong> {{ currentPage.data.title }}</p>
+    <p><strong>URL:</strong> {{ currentPage.data.url }}</p>
+
+    <br>
+    <button class="secondary" (click)="goBack()" [disabled]="!currentPage.prev">⬅ Atrás</button>
+    <button class="secondary" (click)="goForward()" [disabled]="!currentPage.next">Adelante ➔</button>
+  </div>
+</div>
