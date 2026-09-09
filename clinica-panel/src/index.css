@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Paleta Premium: Azul Marino, Platino y Esmeralda */
+  --bg-accent: #F8FAFC;
+  --text-accent: #0F172A;     /* Texto principal oscuro */
+  --fill-accent: #1E293B;     /* Azul Marino muy oscuro para botones */
+  --on-accent: #FFFFFF;
+  --border-accent: #E2E8F0;
+
+  /* Éxito / Alta */
+  --bg-success: #F0FDF4;
+  --text-success: #166534;    /* Verde elegante */
+  --fill-success: #15803D;
+  --on-success: #FFFFFF;
+  --border-success: #DCFCE7;
+
+  /* Destacado / Comité (Tonos Champagne / Dorado tenue) */
+  --bg-pro: #FEFCE8;
+  --text-pro: #854D0E;
+  --fill-pro: #CA8A04;
+  --border-pro: #FEF08A;
+
+  /* Superficies */
+  --surface-1: #F1F5F9;       /* Fondo de la app (gris frío muy claro) */
+  --surface-2: #FFFFFF;       /* Fondo de tarjetas (blanco puro) */
+  --surface-3: #0F172A;       /* Fondo oscuro para notificaciones */
+  
+  /* Textos y líneas */
+  --text-primary: #0F172A;
+  --text-secondary: #64748B;
+  --text-muted: #94A3B8;
+  --border: #F1F5F9;
+  --border-strong: #E2E8F0;
+
+  /* Tipografía y estructura */
+  --font-sans: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius: 12px;
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+  --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.08); /* Sombra amplia y lujosa */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--surface-1);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+input, select, button {
+  font-family: inherit;
+}
