@@ -1,0 +1,18 @@
+<div class="card">
+  <h2>🎵 Reproductor de Música (Lista Simplemente Enlazada)</h2>
+
+  <div *ngIf="currentSong; else empty">
+    <h3>Reproduciendo ahora:</h3>
+    <p><strong>Título:</strong> {{ currentSong.data.title }}</p>
+    <p><strong>Artista:</strong> {{ currentSong.data.artist }}</p>
+
+    <br>
+    <button (click)="nextSong()" [disabled]="!currentSong.next">
+      {{ currentSong.next ? 'Siguiente Canción ➔' : 'Fin de la lista' }}
+    </button>
+  </div>
+
+  <ng-template #empty>
+    <p>La lista de reproducción está vacía.</p>
+  </ng-template>
+</div>
