@@ -1,0 +1,32 @@
+<div class="contenedor">
+  <h2>📚 Gestión de Libros (Estructura de Pila / Stack)</h2>
+
+  <div class="card formulario">
+    <h3>📖 Registrar Nuevo Libro</h3>
+    <div class="grid-form">
+      <input type="text" placeholder="Nombre del libro" [(ngModel)]="nuevoNombre">
+      <input type="text" placeholder="ISBN" [(ngModel)]="nuevoIsbn">
+      <input type="text" placeholder="Autor" [(ngModel)]="nuevoAutor">
+      <input type="text" placeholder="Editorial" [(ngModel)]="nuevaEditorial">
+    </div>
+    <div class="acciones">
+      <button class="btn-push" (click)="agregarLibro()">📥 Apilar (Push)</button>
+      <button class="btn-pop" (click)="desapilar()">📤 Desapilar (Pop)</button>
+    </div>
+  </div>
+
+  <div class="card visualizacion">
+    <h3>🥞 Pila Actual (El elemento superior es el TOPE)</h3>
+    <div class="pila-container">
+      @for (libro of pila.obtenerArreglo(); track libro.isbn; let i = $index) {
+        <div class="item-libro" [class.tope]="i === 0">
+          <span class="tag-tope" *ngIf="i === 0">TOPE (LIFO)</span>
+          <h4>{{ libro.nombre }}</h4>
+          <p><strong>Autor:</strong> {{ libro.autor }} | <strong>Editorial:</strong> {{ libro.editorial }}</p>
+          <small><strong>ISBN:</strong> {{ libro.isbn }}</small>
+        </div>
+      }
+      <p *ngIf="pila.obtenerArreglo().length === 0" class="vacio">La pila está vacía.</p>
+    </div>
+  </div>
+</div>
