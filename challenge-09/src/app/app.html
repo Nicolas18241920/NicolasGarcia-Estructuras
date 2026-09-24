@@ -1,0 +1,36 @@
+<div class="layout">
+  <aside class="sidebar">
+    <div class="menu-list">
+      <ng-container *ngFor="let node of menuTree?.children">
+        <div class="menu-group">
+          <div 
+            class="menu-item" 
+            [class.active]="selectedItem === node.item"
+            (click)="selectItem(node, $event); toggleNode(node, $event)">
+            <span>{{ node.item.title }}</span>
+            <span *ngIf="!node.isLeaf()" class="arrow" [class.expanded]="node.expanded">▲</span>
+          </div>
+
+          <div *ngIf="!node.isLeaf() && node.expanded" class="submenu-list">
+            <div 
+              *ngFor="let child of node.children"
+              class="submenu-item"
+              [class.active]="selectedItem === child.item"
+              (click)="selectItem(child, $event)">
+              {{ child.item.title }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </aside>
+
+  <main class="content">
+    <h2>Challenge 09 - N-ary Tree Menu</h2>
+    <div class="info-card" *ngIf="selectedItem">
+      <h3>Title: <span>{{ selectedItem.title }}</span></h3>
+      <p><strong>Link:</strong> <code>{{ selectedItem.link }}</code></p>
+      <p><strong>Component:</strong> <code>{{ selectedItem.component }}</code></p>
+    </div>
+  </main>
+</div>
