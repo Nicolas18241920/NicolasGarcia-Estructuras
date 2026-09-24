@@ -139,7 +139,7 @@ export default function App() {
     console.log("--------------------------------");
   }, [bst]);
 
-  // Ejecución del PUNTO 2
+  // Ejecución del PUNTO 2 (Corregidas las comillas invertidas)
   const handleSearch = (e) => {
     e.preventDefault();
     const val = parseInt(searchValue, 10);
@@ -149,7 +149,7 @@ export default function App() {
     }
   };
 
-  // Renderizado personalizado de nodos (PUNTO 3)
+  // Renderizado personalizado de nodos (Agregados las etiquetas SVG circle y text)
   const renderCustomNodeElement = ({ nodeDatum }) => (
     <g style={{ visibility: nodeDatum.attributes?.hidden ? 'hidden' : 'visible' }}>
       <circle r="22" fill="#319795" />
@@ -164,6 +164,7 @@ export default function App() {
       <h2>Reto 08: Árbol Binario de Búsqueda</h2>
 
       <div style={{ marginBottom: '20px', padding: '15px', backgroundColor: '#f7fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+        {/* Formulario para probar la búsqueda */}
         <form onSubmit={handleSearch} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <strong>Punto 2 (Buscador):</strong>
           <input 
@@ -180,7 +181,7 @@ export default function App() {
         {searchResult && <p style={{ marginTop: '10px', color: '#2d3748', fontWeight: 'bold' }}>{searchResult}</p>}
         
         <p style={{ marginTop: '10px', fontSize: '14px', color: '#718096' }}>
-          <em>* Presiona F12 para abrir la consola del navegador y ver los recorridos del Punto 1.</em>
+          <em>* Presiona F12 para abrir la consola y ver los recorridos del Punto 1.</em>
         </p>
       </div>
 
