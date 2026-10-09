@@ -1,0 +1,25 @@
+<nav style="padding: 1rem; background: #2c3e50; color: white; display: flex; justify-content: space-between; align-items: center;">
+  <div>
+    @if (auth.estaLogueado()) {
+      <a routerLink="/tareas" style="color: white; margin-right: 1.5rem; text-decoration: none;">Tareas</a>
+      <a routerLink="/ejercicio1" style="color: white; margin-right: 1.5rem; text-decoration: none;">Ejercicio 1</a>
+      <a routerLink="/ejercicio2" style="color: white; text-decoration: none;">Ejercicio 2</a>
+    } @else {
+      <a routerLink="/login" style="color: white; margin-right: 1.5rem; text-decoration: none;">Login</a>
+      <a routerLink="/registro" style="color: white; text-decoration: none;">Registro</a>
+    }
+  </div>
+
+  <div>
+    @if (auth.estaLogueado()) {
+      <span style="margin-right: 1rem;">Usuario: <strong>{{ auth.usuario() }}</strong></span>
+      <button (click)="logout()" style="padding: 0.3rem 0.8rem; cursor: pointer;">Cerrar Sesión</button>
+    } @else {
+      <span>Estado: No autenticado</span>
+    }
+  </div>
+</nav>
+
+<main>
+  <router-outlet />
+</main>

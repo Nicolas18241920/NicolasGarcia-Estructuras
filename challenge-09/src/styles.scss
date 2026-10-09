@@ -1,0 +1,46 @@
+$primario: #4f46e5;
+$fondo: #f3f4f6;
+$radio: 12px;
+
+@mixin tarjeta-centrada($ancho) {
+  max-width: $ancho;
+  margin: 4rem auto;
+  border-radius: $radio;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background: $fondo;
+}
+
+.auth-card {
+  @include tarjeta-centrada(400px);
+
+  h2 {
+    color: $primario;
+    margin-bottom: 1rem;
+  }
+}
+
+.tareas-page {
+  max-width: 700px;
+
+  h2 {
+    color: $primario;
+  }
+
+  .tarea {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    .titulo {
+      flex: 1;
+    }
+
+    &.hecha .titulo {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+  }
+}
