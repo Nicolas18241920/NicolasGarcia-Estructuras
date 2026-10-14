@@ -1,0 +1,61 @@
+<header class="topbar">
+  <h1>📁 Explorador de archivos</h1>
+  <div class="topbar__user">
+    <span>{{ auth.email() }}</span>
+    <button type="button" class="btn btn--ghost" (click)="logout()">Cerrar sesión</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="panel box">
+    <h2>Crear nuevo elemento</h2>
+    <p class="hint">Se creará en: <code>{{ targetPath() }}</code></p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label class="field">
+        Nombre
+        <input formControlName="name" placeholder="Ej. Documentos" />
+      </label>
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+        <small class="error">Obligatorio, máx. 60 caracteres y sin "/" ni "\".</small>
+      }
+
+      <div class="type-toggle" role="radiogroup" aria-label="Tipo">
+        <label><input type="radio" formControlName="type" value="folder" /> 📁 Carpeta</label>
+        <label><input type="radio" formControlName="type" value="file" /> 📄 Archivo</label>
+      </div>
+
+      <button class="btn" type="submit" [disabled]="busy()">Crear</button>
+    </form>
+
+    @if (error()) {
+      <p class="alert" role="alert">{{ error() }}</p>
+    }
+  </section>
+
+  <section class="panel box">
+    <h2>
+      Estructura
+      <span class="badge">{{ fs.stats().folders }} carpetas · {{ fs.stats().files }} archivos</span>
+    </h2>
+
+    <button type="button" class="root-btn" [class.root-btn--selected]="target() === null" (click)="selectFolder(null)">
+      🗂 / (raíz)
+    </button>
+
+    @if (fs.tree().root.children.length === 0) {
+      <p class="empty">Aún no hay carpetas ni archivos. ¡Crea el primero!</p>
+    } @else {
+      <ul class="tree">
+        @for (node of fs.tree().root.children; track node.data.id) {
+          <app-tree-node-view
+            [node]="node"
+            [selectedId]="target()"
+            (folderSelected)="selectFolder($event)"
+            (removeRequested)="remove($event)"
+          />
+        }
+      </ul>
+    }
+  </section>
+</main>

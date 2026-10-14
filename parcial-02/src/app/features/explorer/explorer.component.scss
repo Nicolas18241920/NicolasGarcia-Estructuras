@@ -1,0 +1,66 @@
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--c-surface);
+  border-bottom: 1px solid var(--c-border);
+
+  h1 { margin: 0; font-size: 1.25rem; }
+
+  &__user { display: flex; align-items: center; gap: 0.75rem; color: var(--c-muted); font-size: 0.9rem; }
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) 1fr;
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+
+  @media (max-width: 760px) { grid-template-columns: 1fr; }
+}
+
+.box {
+  padding: 1.25rem;
+  align-self: start;
+
+  h2 { margin: 0 0 0.75rem; font-size: 1.05rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+  form { display: flex; flex-direction: column; gap: 0.75rem; }
+}
+
+.hint { margin: 0 0 0.75rem; color: var(--c-muted); font-size: 0.85rem; }
+
+.type-toggle { display: flex; gap: 1rem; font-size: 0.9rem; }
+
+.badge {
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: var(--c-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.root-btn {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px dashed var(--c-border);
+  border-radius: 8px;
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+
+  &:hover { background: #eef2ff; }
+  &--selected { background: #e0e7ff; border-color: var(--c-primary); }
+}
+
+.tree { margin: 0; padding: 0; }
+
+.empty { padding: 1.5rem 0; text-align: center; color: var(--c-muted); }

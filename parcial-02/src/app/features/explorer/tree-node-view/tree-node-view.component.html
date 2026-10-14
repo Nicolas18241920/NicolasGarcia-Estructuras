@@ -1,0 +1,34 @@
+<li class="node" [class.node--folder]="node().isFolder">
+  <div
+    class="node__row"
+    [class.node__row--selected]="selectedId() === node().data.id"
+    [attr.role]="node().isFolder ? 'button' : null"
+    [attr.tabindex]="node().isFolder ? 0 : null"
+    (click)="onRowActivate()"
+    (keydown.enter)="onRowActivate()"
+  >
+    <span class="chevron" [class.chevron--open]="expanded()" [class.chevron--hidden]="!node().isFolder">▸</span>
+    <span class="icon">{{ node().isFolder ? (expanded() ? '📂' : '📁') : '📄' }}</span>
+    <span class="node__name">{{ node().data.name }}</span>
+    <span class="node__meta" title="Creado por">{{ node().data.createdBy }}</span>
+    <button
+      type="button"
+      class="node__delete"
+      aria-label="Eliminar"
+      (click)="$event.stopPropagation(); removeRequested.emit(node())"
+    >🗑</button>
+  </div>
+
+  @if (node().isFolder && expanded() && node().children.length) {
+    <ul class="children">
+      @for (child of node().children; track child.data.id) {
+        <app-tree-node-view
+          [node]="child"
+          [selectedId]="selectedId()"
+          (folderSelected)="folderSelected.emit($event)"
+          (removeRequested)="removeRequested.emit($event)"
+        />
+      }
+    </ul>
+  }
+</li>

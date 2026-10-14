@@ -1,0 +1,50 @@
+:host { display: contents; }
+
+.node { list-style: none; }
+
+.node__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  transition: background 0.15s;
+
+  &:hover {
+    background: #eef2ff;
+    .node__delete { opacity: 1; }
+  }
+
+  &--selected { background: #e0e7ff; outline: 1px solid var(--c-primary); }
+}
+
+.node--folder > .node__row { cursor: pointer; font-weight: 600; }
+
+.chevron {
+  display: inline-block;
+  width: 1rem;
+  color: var(--c-muted);
+  transition: transform 0.15s;
+
+  &--open { transform: rotate(90deg); }
+  &--hidden { visibility: hidden; }
+}
+
+.node__meta { margin-left: auto; font-size: 0.75rem; font-weight: 400; color: var(--c-muted); }
+
+.node__delete {
+  opacity: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  padding: 0.1rem 0.3rem;
+
+  &:hover, &:focus-visible { opacity: 1; background: #fee2e2; }
+}
+
+.children {
+  margin: 0 0 0 1.1rem;
+  padding-left: 0.6rem;
+  border-left: 1px dashed var(--c-border);
+}
