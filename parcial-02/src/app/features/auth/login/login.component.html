@@ -1,0 +1,35 @@
+<main class="login">
+  <form class="panel login__card" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <h1>📁 Gestor de carpetas</h1>
+    <p class="login__subtitle">
+      {{ mode() === 'login' ? 'Inicia sesión para continuar' : 'Crea tu cuenta' }}
+    </p>
+
+    <label class="field">
+      Correo
+      <input type="email" formControlName="email" autocomplete="email" placeholder="tu@correo.com" />
+    </label>
+    @if (form.controls.email.touched && form.controls.email.invalid) {
+      <small class="error">Ingresa un correo válido.</small>
+    }
+
+    <label class="field">
+      Contraseña
+      <input type="password" formControlName="password" autocomplete="current-password" />
+    </label>
+    @if (form.controls.password.touched && form.controls.password.invalid) {
+      <small class="error">Mínimo 6 caracteres.</small>
+    }
+
+    @if (error()) {
+      <p class="alert" role="alert">{{ error() }}</p>
+    }
+
+    <button class="btn" type="submit" [disabled]="busy()">
+      {{ mode() === 'login' ? 'Entrar' : 'Registrarme' }}
+    </button>
+    <button class="btn btn--ghost" type="button" (click)="toggleMode()">
+      {{ mode() === 'login' ? '¿No tienes cuenta? Regístrate' : '¿Ya tienes cuenta? Inicia sesión' }}
+    </button>
+  </form>
+</main>
