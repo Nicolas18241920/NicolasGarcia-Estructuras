@@ -1,0 +1,36 @@
+h1 { margin: 0 0 1rem; }
+
+.add {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+
+  input { flex: 1; }
+}
+
+.alert { margin-bottom: 1rem; }
+
+.list { margin: 0; padding: 0; list-style: none; }
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+
+  & + & { border-top: 1px solid var(--c-border); }
+
+  &__check {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    flex: 1;
+  }
+
+  &--done span { text-decoration: line-through; color: var(--c-muted); }
+}
+
+.empty { padding: 1.5rem; text-align: center; color: var(--c-muted); list-style: none; }
