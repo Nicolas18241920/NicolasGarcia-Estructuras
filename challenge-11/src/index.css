@@ -1,0 +1,26 @@
+:root {
+  --c-bg: #f1f5f4;
+  --c-surface: #fff;
+  --c-text: #1f2937;
+  --c-muted: #6b7280;
+  --c-primary: #10b981;
+  --c-primary-dark: #047857;
+  --c-city: #f59e0b;
+  --c-border: #e5e7eb;
+  --c-danger: #dc2626;
+  --radius: 12px;
+  --shadow: 0 4px 16px rgb(15 23 42 / 8%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--c-bg);
+  color: var(--c-text);
+}
