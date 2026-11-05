@@ -1,0 +1,69 @@
+<div class="search-engine-container">
+  <header class="header">
+    <div>
+      <h1>⚡ Smart Search Engine (Trie + MaxHeap)</h1>
+      <small>Sesión: <strong>{{ userEmail }}</strong></small>
+    </div>
+    <button (click)="logout()" class="btn-logout">Cerrar Sesión</button>
+  </header>
+
+  <!-- Buscador en tiempo real -->
+  <div class="search-card">
+    <h3>🔎 Autocompletado y Ranking Top-K</h3>
+    <div class="search-inputs">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (input)="onSearchChange()" 
+        placeholder="Escribe un prefijo (ej. 'air')..." 
+        class="input-query"
+      />
+      <div class="k-selector">
+        <label>Top K:</label>
+        <input 
+          type="number" 
+          [(ngModel)]="topKCount" 
+          (change)="onSearchChange()" 
+          min="1" 
+          max="10"
+        />
+      </div>
+    </div>
+
+    <!-- Resultados en tiempo real -->
+    <div class="results-container" *ngIf="results.length > 0">
+      <h4>Resultados más populares:</h4>
+      <div class="result-card" *ngFor="let item of results; let i = index">
+        <span class="rank-badge">#{{ i + 1 }}</span>
+        <span class="product-name">{{ item.name }}</span>
+        <span class="popularity-tag">⭐ Popularidad: {{ item.popularity }}</span>
+      </div>
+    </div>
+
+    <p *ngIf="searchQuery && results.length === 0" class="no-results">
+      No se encontraron coincidencias para "{{ searchQuery }}"
+    </p>
+  </div>
+
+  <!-- Formulario e inserción de datos de prueba -->
+  <div class="tools-card">
+    <h3>➕ Insertar Producto</h3>
+    <div class="form-row">
+      <input 
+        type="text" 
+        [(ngModel)]="newProductName" 
+        placeholder="Nombre del producto (ej. air max)" 
+      />
+      <input 
+        type="number" 
+        [(ngModel)]="newProductPopularity" 
+        placeholder="Popularidad (0 - 100)" 
+      />
+      <button (click)="addProduct()" class="btn-add">Guardar</button>
+    </div>
+    <hr />
+    <button (click)="loadSlideExamples()" class="btn-preset">
+      📦 Cargar Ejemplos de la Diapositiva (air max, air force, air jordan...)
+    </button>
+  </div>
+</div>
