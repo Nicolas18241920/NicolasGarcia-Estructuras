@@ -1,0 +1,115 @@
+<div class="giphy-container">
+  <header class="header">
+    <div>
+      <h1>🎬 GIPHY Smart Finder</h1>
+      <p class="subtitle">Challenge 13 · Consumo de API REST con Fetch, URLSearchParams &amp; Angular Signals</p>
+    </div>
+    <span class="badge-api">GIPHY Search API</span>
+  </header>
+
+  <!-- Barra de busqueda -->
+  <section class="search-panel">
+    <form (ngSubmit)="search()" class="search-form">
+      <input
+        type="text"
+        name="searchQuery"
+        [(ngModel)]="searchQuery"
+        (input)="search()"
+        placeholder="Busca GIFs (ej. smile, cats, coding)..."
+        class="search-input"
+        autocomplete="off"
+      />
+
+      <select name="limit" [(ngModel)]="limit" (change)="search()" class="select-control" title="Cantidad">
+        <option [ngValue]="12">12 GIFs</option>
+        <option [ngValue]="25">25 GIFs</option>
+        <option [ngValue]="50">50 GIFs</option>
+      </select>
+
+      <select name="rating" [(ngModel)]="rating" (change)="search()" class="select-control" title="Clasificacion">
+        <option value="g">Rating: G</option>
+        <option value="pg">Rating: PG</option>
+        <option value="pg-13">Rating: PG-13</option>
+      </select>
+
+      <button type="submit" class="btn-search">Buscar</button>
+    </form>
+
+    <!-- Sugerencias rapidas -->
+    <div class="quick-tags">
+      <span>Sugerencias:</span>
+      <button
+        type="button"
+        *ngFor="let tag of quickTags"
+        (click)="selectTag(tag)"
+        [class.active]="searchQuery.toLowerCase() === tag"
+        class="tag-chip"
+      >
+        #{{ tag }}
+      </button>
+    </div>
+  </section>
+
+  <!-- Estado de error -->
+  <div *ngIf="giphyService.error()" class="alert-error">
+    ⚠️ <strong>Error en la petición:</strong> {{ giphyService.error() }}
+  </div>
+
+  <!-- Estado de carga -->
+  <div *ngIf="giphyService.loading()" class="loader-box">
+    <div class="spinner"></div>
+    <p>Buscando GIFs en GIPHY...</p>
+  </div>
+
+  <!-- Grilla de resultados -->
+  <section *ngIf="!giphyService.loading() && giphyService.gifs().length > 0">
+    <div class="results-meta">
+      <span>
+        Mostrando <strong>{{ giphyService.gifs().length }}</strong> resultados
+        (offset: {{ offset }}) de {{ giphyService.totalCount() | number }} encontrados
+      </span>
+    </div>
+
+    <div class="gif-grid">
+      <article class="gif-card" *ngFor="let gif of giphyService.gifs()">
+        <div class="gif-thumb">
+          <img
+            [src]="gif.images.fixed_height.url"
+            [alt]="gif.title || 'GIF'"
+            loading="lazy"
+          />
+        </div>
+        <div class="gif-info">
+          <h3 class="gif-title" [title]="gif.title">{{ gif.title || 'Sin título' }}</h3>
+          <button type="button" (click)="copyGifUrl(gif)" class="btn-copy">
+            {{ copiedId === gif.id ? '✅ ¡Enlace copiado!' : '🔗 Copiar URL' }}
+          </button>
+        </div>
+      </article>
+    </div>
+
+    <!-- Paginacion -->
+    <div class="pagination">
+      <button type="button" (click)="prevPage()" [disabled]="offset === 0" class="btn-page">
+        ← Anterior
+      </button>
+      <span class="page-indicator">Página {{ (offset / limit) + 1 }}</span>
+      <button
+        type="button"
+        (click)="nextPage()"
+        [disabled]="offset + limit >= giphyService.totalCount()"
+        class="btn-page"
+      >
+        Siguiente →
+      </button>
+    </div>
+  </section>
+
+  <!-- Estado vacio -->
+  <div
+    *ngIf="!giphyService.loading() && !giphyService.error() && searchQuery.trim() && giphyService.gifs().length === 0"
+    class="empty-state"
+  >
+    No se encontraron GIFs para "<strong>{{ searchQuery }}</strong>". Intenta con otra palabra.
+  </div>
+</div>
