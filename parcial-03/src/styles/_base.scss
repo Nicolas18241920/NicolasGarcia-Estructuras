@@ -1,0 +1,37 @@
+@use 'theme' as t;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: t.clr(bg);
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #1a1a24 0%, t.clr(bg) 55%);
+  background-attachment: fixed;
+  color: t.clr(text);
+  font-family: t.$font;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+mark {
+  background: transparent;
+  color: t.clr(primary);
+  font-weight: 700;
+}

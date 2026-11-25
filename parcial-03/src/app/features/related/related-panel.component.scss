@@ -1,0 +1,67 @@
+@use 'theme' as t;
+
+:host {
+  display: block;
+}
+
+.current {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: t.sp(2);
+  padding: t.sp(3);
+  border-radius: 10px;
+  background: t.clr(surface-2);
+}
+
+.subtitle {
+  margin: t.sp(4) 0 t.sp(2);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: t.clr(muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: t.sp(2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  padding: t.sp(1) t.sp(3);
+  border: 1px solid t.clr(primary);
+  border-radius: 999px;
+  background: transparent;
+  color: t.clr(text);
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  @include t.focus-ring;
+
+  &:hover { background: rgb(29 185 84 / 16%); }
+}
+
+.chips--soft .chip {
+  border-color: t.clr(border);
+  color: t.clr(muted);
+}
+
+.structure {
+  margin-top: t.sp(4);
+
+  summary { cursor: pointer; font-size: 0.85rem; color: t.clr(muted); }
+
+  pre {
+    margin: t.sp(2) 0 0;
+    padding: t.sp(3);
+    border-radius: 10px;
+    background: #000;
+    color: #d4d4d8;
+    font-size: 0.78rem;
+    @include t.scroll-area(220px);
+  }
+}
