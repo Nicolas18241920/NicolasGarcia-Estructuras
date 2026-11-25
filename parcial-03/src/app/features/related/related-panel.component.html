@@ -1,0 +1,38 @@
+<section class="card">
+  <h2 class="panel-title">🕸️ Canciones relacionadas</h2>
+
+  @if (selected(); as song) {
+    <div class="current">
+      <strong>{{ song.title }}</strong>
+      <span class="muted">{{ song.artist }}</span>
+      <span class="badge badge--{{ song.genre }}">{{ song.genre }}</span>
+    </div>
+
+    <h3 class="subtitle">Similares</h3>
+    @if (related().length) {
+      <ul class="chips">
+        @for (item of related(); track item.id) {
+          <li><button type="button" class="chip" (click)="select(item)">{{ item.title }}</button></li>
+        }
+      </ul>
+    } @else {
+      <p class="muted">Todavía no tiene canciones conectadas.</p>
+    }
+
+    @if (extended().length) {
+      <h3 class="subtitle">También te puede gustar</h3>
+      <ul class="chips chips--soft">
+        @for (item of extended(); track item.id) {
+          <li><button type="button" class="chip" (click)="select(item)">{{ item.title }}</button></li>
+        }
+      </ul>
+    }
+  } @else {
+    <p class="muted">Elige una canción en el buscador o en el ranking para ver sus recomendaciones.</p>
+  }
+
+  <details class="structure">
+    <summary>Ver el grafo (lista de adyacencia)</summary>
+    <pre>{{ adjacency() }}</pre>
+  </details>
+</section>

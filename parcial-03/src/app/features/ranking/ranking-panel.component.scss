@@ -1,0 +1,123 @@
+@use 'theme' as t;
+
+:host {
+  display: block;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: t.sp(2);
+
+  .panel-title { margin: 0; }
+}
+
+.tabs {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: t.clr(surface-2);
+}
+
+.tab {
+  padding: t.sp(1) t.sp(3);
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: t.clr(muted);
+  font-weight: 600;
+  cursor: pointer;
+  @include t.focus-ring;
+
+  &--active {
+    background: t.clr(primary);
+    color: #000;
+  }
+}
+
+.ranking {
+  margin: t.sp(4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1.4fr) minmax(60px, 1fr) 3.4rem 2rem;
+  align-items: center;
+  gap: t.sp(3);
+  padding: t.sp(2) 0;
+
+  & + & { border-top: 1px solid t.clr(border); }
+
+  &__pos {
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-align: center;
+    color: t.clr(muted);
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    @include t.focus-ring;
+  }
+
+  &__title,
+  &__artist {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__title { font-weight: 600; }
+  &__artist { color: t.clr(muted); font-size: 0.8rem; }
+
+  &__bar { @include t.progress-track(8px); }
+  &__fill { @include t.progress-fill(t.clr(primary)); }
+
+  &__plays {
+    text-align: right;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  @include t.respond(sm) {
+    grid-template-columns: 1.6rem minmax(0, 1fr) 3rem 2rem;
+    &__bar { display: none; }
+  }
+}
+
+// Medallas del podio: .rank-1, .rank-2, .rank-3 (usa la función rank-color)
+@for $position from 1 through 3 {
+  .rank-#{$position} {
+    .row__pos { color: t.rank-color($position); }
+    .row__fill { background: t.rank-color($position); }
+  }
+}
+
+.play {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: t.clr(primary);
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.1s;
+  @include t.focus-ring;
+
+  &:hover { transform: scale(1.1); }
+}
+
+.footer { margin-top: t.sp(3); font-size: 0.78rem; }

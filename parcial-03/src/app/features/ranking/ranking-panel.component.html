@@ -1,0 +1,27 @@
+<section class="card">
+  <header class="head">
+    <h2 class="panel-title">🏆 Ranking de canciones</h2>
+    <div class="tabs" role="group" aria-label="Tamaño del ranking">
+      @for (n of options; track n) {
+        <button type="button" class="tab" [class.tab--active]="topN() === n" (click)="topN.set(n)">Top {{ n }}</button>
+      }
+    </div>
+  </header>
+
+  <ol class="ranking">
+    @for (song of ranking(); track song.id; let i = $index) {
+      <li class="row rank-{{ i + 1 }}">
+        <span class="row__pos">{{ i + 1 }}</span>
+        <button type="button" class="row__info" (click)="select(song)">
+          <span class="row__title">{{ song.title }}</span>
+          <span class="row__artist">{{ song.artist }}</span>
+        </button>
+        <div class="row__bar" aria-hidden="true"><div class="row__fill" [style.width.%]="percent(song)"></div></div>
+        <span class="row__plays">{{ compact(song.plays) }}</span>
+        <button type="button" class="play" (click)="play(song)" [attr.aria-label]="'Reproducir ' + song.title">▶</button>
+      </li>
+    }
+  </ol>
+
+  <p class="muted footer">Max Heap · cada ▶ suma {{ compact(playStep) }} reproducciones y el ranking se reordena.</p>
+</section>

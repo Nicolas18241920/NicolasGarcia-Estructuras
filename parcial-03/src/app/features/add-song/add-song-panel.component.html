@@ -1,0 +1,64 @@
+<section class="card">
+  <h2 class="panel-title">➕ Insertar canción</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <label>
+      Título
+      <input class="field" formControlName="title" placeholder="Ej. Viva la Vida" maxlength="80" />
+    </label>
+    @if (form.controls.title.touched && form.controls.title.invalid) {
+      <small class="error">El título es obligatorio.</small>
+    }
+
+    <label>
+      Artista
+      <input class="field" formControlName="artist" placeholder="Ej. Coldplay" maxlength="60" />
+    </label>
+    @if (form.controls.artist.touched && form.controls.artist.invalid) {
+      <small class="error">El artista es obligatorio.</small>
+    }
+
+    <div class="two">
+      <label>
+        Género
+        <select class="field" formControlName="genre">
+          @for (g of genres; track g.id) {
+            <option [value]="g.id">{{ g.label }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        Reproducciones
+        <input class="field" type="number" min="0" formControlName="plays" />
+      </label>
+    </div>
+    @if (form.controls.plays.touched && form.controls.plays.invalid) {
+      <small class="error">Debe ser un número mayor o igual a 0.</small>
+    }
+
+    <fieldset>
+      <legend>Similar a (se conecta en el grafo)</legend>
+      <div class="similars">
+        @for (song of catalog.songs(); track song.id) {
+          <label class="similar">
+            <input
+              type="checkbox"
+              [checked]="similares().includes(song.id)"
+              (change)="toggleSimilar(song.id, $any($event.target).checked)"
+            />
+            {{ song.title }}
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    @if (error()) {
+      <p class="alert alert--error" role="alert">{{ error() }}</p>
+    }
+    @if (ok()) {
+      <p class="alert alert--ok" role="status">{{ ok() }}</p>
+    }
+
+    <button class="btn" type="submit">Insertar canción</button>
+  </form>
+</section>

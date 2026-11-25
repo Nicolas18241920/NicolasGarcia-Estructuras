@@ -1,0 +1,47 @@
+@use 'theme' as t;
+
+:host {
+  display: block;
+}
+
+.status {
+  margin: t.sp(3) 0 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+
+  &--ok { color: t.clr(primary); }
+  &--no { color: t.clr(danger); }
+}
+
+.results {
+  margin: t.sp(3) 0 0;
+  padding: 0;
+  list-style: none;
+  @include t.scroll-area(320px);
+}
+
+.result {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: 'title badge' 'artist badge';
+  align-items: center;
+  width: 100%;
+  padding: t.sp(2) t.sp(3);
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover { background: t.clr(surface-2); }
+  @include t.focus-ring;
+
+  &__title { grid-area: title; font-weight: 600; }
+  &__artist { grid-area: artist; color: t.clr(muted); font-size: 0.82rem; }
+  .badge { grid-area: badge; }
+}
+
+.empty { margin-top: t.sp(3); }
+.footer { margin-top: t.sp(3); font-size: 0.78rem; }

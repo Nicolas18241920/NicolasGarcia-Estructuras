@@ -1,0 +1,56 @@
+@use 'theme' as t;
+
+:host {
+  display: block;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: t.sp(3);
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: t.sp(1);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: t.sp(3);
+}
+
+.error {
+  margin-top: -#{t.sp(2)};
+  color: t.clr(danger);
+}
+
+fieldset {
+  margin: 0;
+  padding: t.sp(3);
+  border: 1px solid t.clr(border);
+  border-radius: 10px;
+}
+
+legend {
+  padding: 0 t.sp(2);
+  font-size: 0.8rem;
+  color: t.clr(muted);
+}
+
+.similars {
+  @include t.scroll-area(150px);
+}
+
+.similar {
+  flex-direction: row;
+  align-items: center;
+  gap: t.sp(2);
+  padding: t.sp(1) 0;
+  font-weight: 400;
+  cursor: pointer;
+}

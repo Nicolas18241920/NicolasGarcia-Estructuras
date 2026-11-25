@@ -1,0 +1,43 @@
+<section class="card">
+  <h2 class="panel-title">🔎 Buscador predictivo</h2>
+
+  <input
+    class="field"
+    type="search"
+    placeholder="Escribe el inicio de un título… (ej. Th)"
+    aria-label="Buscar canción por título"
+    autocomplete="off"
+    [value]="query()"
+    (input)="onInput($event)"
+  />
+
+  @if (query().trim()) {
+    <p class="status" [class.status--ok]="exists()" [class.status--no]="!exists()" role="status">
+      {{ exists() ? '✓ Esa canción existe en el catálogo' : '✗ No hay una canción con ese título exacto' }}
+    </p>
+
+    @if (suggestions().length) {
+      <ul class="results">
+        @for (song of suggestions(); track song.id) {
+          <li>
+            <button type="button" class="result" (click)="select(song)">
+              <span class="result__title">
+                <mark>{{ song.title.slice(0, matchLength()) }}</mark>{{ song.title.slice(matchLength()) }}
+              </span>
+              <span class="result__artist">{{ song.artist }}</span>
+              <span class="badge badge--{{ song.genre }}">{{ song.genre }}</span>
+            </button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="muted empty">Sin sugerencias para «{{ query().trim() }}».</p>
+    }
+  } @else {
+    <p class="muted empty">Empieza a escribir para ver sugerencias por prefijo.</p>
+  }
+
+  <p class="muted footer">
+    Trie: {{ catalog.trieStats().words }} títulos · {{ catalog.trieStats().nodes }} nodos
+  </p>
+</section>

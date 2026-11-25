@@ -1,0 +1,115 @@
+@use 'sass:color';
+@use 'sass:map';
+@use 'variables' as v;
+
+/// Media query por nombre de breakpoint (max-width).
+@mixin respond($name) {
+  @media (max-width: map.get(v.$breakpoints, $name)) {
+    @content;
+  }
+}
+
+/// Tarjeta del dashboard.
+@mixin card($padding: v.sp(5)) {
+  padding: $padding;
+  border: 1px solid v.clr(border);
+  border-radius: v.$radius;
+  background: v.clr(surface);
+  box-shadow: v.$shadow;
+}
+
+@mixin panel-title {
+  margin: 0 0 v.sp(3);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid v.clr(primary);
+    outline-offset: 2px;
+  }
+}
+
+/// Botón. Cambia el fondo y el color del texto.
+@mixin button($bg: v.clr(primary), $fg: #000) {
+  padding: v.sp(2) v.sp(4);
+  border: 0;
+  border-radius: 999px;
+  background: $bg;
+  color: $fg;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+
+  &:hover:not(:disabled) {
+    background: color.adjust($bg, $lightness: -8%);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @include focus-ring;
+}
+
+/// Etiqueta redondeada con el color indicado.
+@mixin badge($color) {
+  display: inline-block;
+  padding: 0.1rem 0.6rem;
+  border-radius: 999px;
+  background: color.change($color, $alpha: 0.16);
+  color: $color;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/// Pista de una barra de progreso.
+@mixin progress-track($height: 8px) {
+  height: $height;
+  overflow: hidden;
+  border-radius: 999px;
+  background: v.clr(surface-2);
+}
+
+/// Relleno de la barra (el ancho se pone en línea con [style.width.%]).
+@mixin progress-fill($color) {
+  height: 100%;
+  border-radius: inherit;
+  background: $color;
+  transition: width 0.4s ease;
+}
+
+/// Zona con scroll vertical.
+@mixin scroll-area($max-height) {
+  max-height: $max-height;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+/// Campo de texto / select.
+@mixin field {
+  width: 100%;
+  padding: v.sp(2) v.sp(3);
+  border: 1px solid v.clr(border);
+  border-radius: 10px;
+  background: v.clr(surface-2);
+  color: v.clr(text);
+  font: inherit;
+
+  &::placeholder {
+    color: v.clr(muted);
+  }
+
+  &:focus {
+    outline: 2px solid v.clr(primary);
+    border-color: transparent;
+  }
+}
